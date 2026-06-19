@@ -5,21 +5,19 @@
 
 ## Flutter 기본 구조
 
-작성 예정:
-- `main()`
-- `runApp`
-- `Widget`
-- `BuildContext`
-- `MaterialApp`
-- `Scaffold`
+- `main()`은 Dart 프로그램의 시작 함수다. Flutter 앱도 여기서 시작한다.
+- `runApp()`은 Flutter 프레임워크에 화면의 루트 위젯을 전달한다.
+- `MaterialApp`은 Material Design 기반 앱의 최상위 설정 위젯이다. 앱 제목, 테마, 첫 화면 등을 정한다.
+- `Scaffold`는 한 화면의 기본 골격을 만든다. 대표 영역은 `appBar`, `body`, `bottomNavigationBar`다.
+- `BuildContext`는 현재 위젯이 위젯 트리의 어디에 있는지 알려주는 문맥 객체다. 오늘은 직접 사용하지 않았지만 모든 `build` 메서드가 받는다.
 
 ## Widget
 
-작성 예정:
-- `StatelessWidget`
-- `StatefulWidget`
-- widget tree
-- build method
+- `Widget`은 Flutter UI를 구성하는 기본 단위다.
+- `StatelessWidget`은 자기 내부에 바뀌는 상태를 들고 있지 않은 위젯이다.
+- `StatefulWidget`은 사용자 입력이나 데이터 변화에 따라 화면이 바뀌어야 할 때 사용한다.
+- widget tree는 위젯이 부모-자식 관계로 중첩된 구조다.
+- build method는 현재 상태와 설정을 바탕으로 화면에 그릴 위젯 트리를 반환한다.
 - `const` widget
 
 ## Dart

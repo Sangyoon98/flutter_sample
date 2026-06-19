@@ -3,11 +3,29 @@
 ## 진행 상태 요약
 
 - 현재 단계: 0단계. 프로젝트 기준선 잡기
-- 현재 앱 상태: Flutter 기본 카운터 앱
-- 다음 추천 세션: 기본 카운터 앱 구조 읽기, 앱 이름/테마 변경, 첫 피드 화면 뼈대 만들기
+- 현재 앱 상태: Fluttergram 첫 홈 화면 뼈대 작성
+- 다음 추천 세션: 작성한 `HomePage` 구조 복습, 포매팅 정리, 위젯 테스트를 새 화면 기준으로 수정하기
 - 마지막 문서 업데이트: 2026-06-19
 
 ## 세션 기록
+
+### 2026-06-19. 첫 Fluttergram 홈 화면 작성
+
+작업:
+- 기본 카운터 앱의 `MyHomePage`/`State` 구조를 제거하고 `HomePage` `StatelessWidget`을 작성했다.
+- `MaterialApp`의 앱 이름을 `Fluttergram`으로 바꾸고 디버그 배너를 숨겼다.
+- `Scaffold`를 사용해 상단 앱바, 본문 텍스트, 하단 네비게이션 바를 구성했다.
+
+배운 내용:
+- `main()`은 Dart/Flutter 앱의 시작점이다.
+- `runApp()`은 Flutter에게 첫 위젯을 전달한다.
+- 화면에 바뀌는 값이 없으면 `StatefulWidget` 대신 `StatelessWidget`을 쓸 수 있다.
+- `Scaffold`는 `appBar`, `body`, `bottomNavigationBar` 같은 화면 기본 영역을 제공한다.
+
+다음 작업:
+- Dart formatter로 코드 스타일을 정리하는 법을 익힌다.
+- 기존 카운터 위젯 테스트를 Fluttergram 홈 화면 기준 테스트로 바꾼다.
+- 본문 `Text`를 실제 피드 카드 형태로 발전시킨다.
 
 ### 2026-06-19. 학습 진행 방식 수정
 
