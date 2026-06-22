@@ -1,5 +1,9 @@
 # Flutter Instagram Clone Study Plan
 
+이 문서는 초기 학습 계획이다.
+현재 활성 계획은 공식 문서와 Stitch UI/CATAAS API 요구사항을 반영한 `LEARNING_FLUTTER_INSTAGRAM_CLONE.md`다.
+새 학습 세션은 `LEARNING.md`에서 활성 트랙을 확인한 뒤 진행한다.
+
 목표는 인스타그램 클론을 만들면서 Dart 문법, Flutter 위젯, 레이아웃, 상태 관리, 라우팅, 비동기 처리, 로컬/원격 데이터 흐름, 테스트와 앱 구조를 단계적으로 익히는 것이다.
 
 ## 0단계. 프로젝트 기준선 잡기
