@@ -2,7 +2,7 @@
 
 대상: Flutter 입문자, Android 개발 경험은 있으나 Flutter/Dart는 직접 작성하며 익히는 학습자
 
-목표: Flutter 공식 문서를 기준으로 Dart, 위젯, 레이아웃, 상태, 네트워크, 테스트, 간단한 앱 구조를 익히고, Stitch UI 자료를 참고해 인스타그램 일부 화면을 Flutter로 구현한다.
+목표: Flutter 공식 문서를 기준으로 Dart, 위젯, 레이아웃, 상태, 네트워크, 간단한 앱 구조를 익히고, Stitch UI 자료를 참고해 인스타그램 일부 화면을 Flutter로 구현한다.
 
 방식: 공식 문서 기반 개념 학습, 질문 확인, 힌트형 퀴즈, 엄격 채점, 학습자 주도 코드 실습, 복습 문서 작성, 복습 문서 감사
 
@@ -12,7 +12,8 @@
 
 - 앱 이름: Fluttergram
 - 현재 앱 상태: `HomePage` 기반 첫 홈 화면 뼈대 작성 완료
-- 현재 미해결 항목: 기본 카운터 위젯 테스트가 새 화면 기준으로 아직 수정되지 않음
+- 테스트 코드 작성: 현재 학습 필수 범위에서 제외
+- 검증 방식: 코드 포매팅, `flutter analyze`, 앱 실행 화면 확인 중심
 - UI 목표 1: Stitch `_2` 홈 피드 화면
 - UI 목표 2: Stitch `_1` Explore 그리드 화면
 - API 목표: CATAAS 랜덤 고양이 이미지 API를 사용해 피드 이미지에 고양이 사진 표시
@@ -30,7 +31,6 @@
 - Work with tabs: https://docs.flutter.dev/cookbook/design/tabs
 - Simple app state management: https://docs.flutter.dev/data-and-backend/state-mgmt/simple
 - Guide to app architecture: https://docs.flutter.dev/app-architecture/guide
-- Widget testing: https://docs.flutter.dev/cookbook/testing/widget/introduction
 
 ### 프로젝트/실습 출처
 
@@ -92,6 +92,7 @@
 - 사용자가 막히면 `힌트 1 -> 힌트 2 -> 부분 설명 -> 정답` 순서로 돕는다.
 - 영어 축약어는 원어, 한글 의미, 실제 쓰임을 함께 적는다.
 - 앱 코드, 테스트 코드, 빌드 파일 수정은 사용자가 직접 작성하는 것을 기본으로 한다.
+- 테스트 코드는 현재 학습 필수 범위에 넣지 않는다. 사용자가 나중에 원하면 별도 선택 단계로 추가한다.
 - 에이전트는 사용자가 "적용해줘", "직접 수정해줘", "구현해줘"라고 명시하지 않으면 앱 파일을 직접 수정하지 않는다.
 - 실습 있는 단계는 실습 검증 통과 후에만 `완료`가 될 수 있다.
 - 첫 미완료 단계는 상태가 `완료`가 아닌 가장 앞 단계다.
@@ -110,8 +111,8 @@
 | 단계 | 주제 | 상태 | 퀴즈 결과 | 실습 상태 | 메모 |
 |---|---|---|---|---|---|
 | 0 | 학습 트랙 재정의와 요구사항 정리 | 완료 | - | - | 공식 문서, Stitch UI, CATAAS API 기준으로 플랜 재작성 |
-| 1 | Dart/Flutter 앱 진입점과 기본 위젯 | 실습 검증 중 | - | Fluttergram 홈 뼈대 작성, 테스트 미수정 | `main()`, `runApp`, `MaterialApp`, `Scaffold`, `StatelessWidget` |
-| 2 | 코드 포매팅과 위젯 테스트 갱신 | 미시작 | - | - | 카운터 테스트를 Fluttergram 화면 테스트로 변경 |
+| 1 | Dart/Flutter 앱 진입점과 기본 위젯 | 완료 | 통과 | Fluttergram 홈 뼈대 작성 | `runApp()`의 루트 위젯 전달 역할을 재시도 후 정확히 설명함 |
+| 2 | 코드 포매팅과 현재 화면 점검 | 미시작 | - | - | formatter와 `flutter analyze`, 앱 실행 화면 확인 |
 | 3 | 홈 피드 정적 UI 구성 | 미시작 | - | - | Stitch `_2` 기준 포스트 헤더, 이미지, 액션, 캡션 |
 | 4 | Dart 모델과 더미 피드 데이터 | 미시작 | - | - | `Post`, `User`, 리스트 렌더링 |
 | 5 | 리스트와 스크롤 | 미시작 | - | - | `ListView`, `SingleChildScrollView`, full-bleed media |
@@ -121,7 +122,7 @@
 | 9 | Explore 그리드 화면 | 미시작 | - | - | Stitch `_1` 기준 검색 바, 3열 grid, overlay icon |
 | 10 | 하단 네비게이션과 화면 전환 | 미시작 | - | - | 홈/검색 탭 전환 |
 | 11 | 파일 구조와 앱 아키텍처 기초 | 미시작 | - | - | widgets/models/services/pages 분리 |
-| 12 | 최종 테스트와 리팩터링 | 미시작 | - | - | widget test, repository/service test, analyze/test 통과 |
+| 12 | 최종 리팩터링과 수동 검증 | 미시작 | - | - | 파일 구조 정리, analyze 통과, 앱 실행 화면 확인 |
 
 ## 호기심 기록
 
@@ -140,7 +141,7 @@
 
 | 실습 | 상태 | 검사 항목 | 수정 필요 내용 | 재검증 결과 |
 |---|---|---|---|---|
-| Fluttergram 홈 화면 뼈대 | 재검증 필요 | `flutter analyze` 통과, `flutter test` 미실행 | 기존 카운터 테스트를 새 화면 기준으로 변경 필요 | - |
+| Fluttergram 홈 화면 뼈대 | 통과 | 퀴즈 통과, 복습 문서 작성, 앱 코드 작성 완료 | 테스트 코드는 학습 필수 범위에서 제외 | 통과 |
 
 ## 단계별 학습 계획
 
@@ -167,38 +168,35 @@
 
 완료 체크:
 
-- [ ] `main()`과 `runApp()`의 역할을 설명한다.
-- [ ] `StatelessWidget`과 `StatefulWidget`의 차이를 설명한다.
-- [ ] 복습 문서를 만들고 검증한다.
-- [ ] 새 화면 기준 위젯 테스트가 통과한다.
+- [x] `main()`과 `runApp()`의 역할을 설명한다.
+- [x] `StatelessWidget`과 `StatefulWidget`의 차이를 설명한다.
+- [x] 복습 문서를 만들고 검증한다.
+- [x] 테스트 코드는 현재 학습 필수 범위에서 제외한다고 기록했다.
 
-### 2단계. 코드 포매팅과 위젯 테스트 갱신
+### 2단계. 코드 포매팅과 현재 화면 점검
 
 학습 출처:
 
 - https://docs.flutter.dev/tools/formatting
-- https://docs.flutter.dev/cookbook/testing/widget/introduction
 
 배울 것:
 
 - Dart formatter
 - `flutter analyze`
-- `flutter_test`
-- `testWidgets`
-- `WidgetTester`
-- `Finder`
-- `Matcher`
+- IDE reformat
+- 들여쓰기와 trailing comma
+- 현재 화면 수동 확인
 
 실습:
 
 - 현재 `lib/main.dart`를 formatter 기준으로 정리한다.
-- 기존 카운터 테스트를 Fluttergram 홈 화면 기준 테스트로 바꾼다.
+- 앱을 실행해 Fluttergram 제목, 본문 텍스트, 하단 네비게이션이 보이는지 확인한다.
 
 완료 체크:
 
 - [ ] `dart format` 또는 IDE reformat을 적용한다.
 - [ ] `flutter analyze`가 통과한다.
-- [ ] `flutter test`가 통과한다.
+- [ ] 실행 화면에서 Fluttergram 홈 뼈대가 확인된다.
 
 ### 3단계. 홈 피드 정적 UI 구성
 
@@ -432,30 +430,28 @@
 - [ ] UI 코드가 직접 API URL 조립과 JSON parsing을 모두 책임지지 않는다.
 - [ ] 파일 구조를 설명할 수 있다.
 
-### 12단계. 최종 테스트와 리팩터링
+### 12단계. 최종 리팩터링과 수동 검증
 
 학습 출처:
 
-- https://docs.flutter.dev/testing
-- https://docs.flutter.dev/cookbook/testing/widget/introduction
+- https://docs.flutter.dev/app-architecture/guide
 
 배울 것:
 
-- widget test
-- unit test
-- test double
-- regression check
+- 파일 구조 정리
+- 중복 제거
+- 수동 검증 체크리스트
+- `flutter analyze`
 
 실습:
 
-- 홈 화면 위젯 테스트를 작성한다.
-- Explore 화면 위젯 테스트를 작성한다.
-- CATAAS service의 JSON parsing 테스트를 작성한다.
+- 홈 피드와 Explore 화면 파일을 정리한다.
+- 공통 위젯을 분리한다.
+- 수동 검증 체크리스트를 만든다.
 
 완료 체크:
 
 - [ ] `flutter analyze` 통과
-- [ ] `flutter test` 통과
 - [ ] 완성 화면이 Stitch 목표와 주요 구조가 일치
 
 ## 퀴즈 규칙
@@ -503,4 +499,4 @@
 ## 다음 세션 시작점
 
 첫 미완료 단계는 1단계다.
-다음 세션에서는 먼저 현재 `lib/main.dart`와 `test/widget_test.dart`를 확인하고, 2단계 목표인 코드 포매팅과 위젯 테스트 갱신으로 넘어가기 전에 1단계 핵심 개념 퀴즈를 진행한다.
+다음 세션에서는 현재 `lib/main.dart`를 formatter 기준으로 정리하고, `flutter analyze`와 앱 실행 화면 확인으로 2단계를 진행한다.
