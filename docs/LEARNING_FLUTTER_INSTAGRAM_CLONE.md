@@ -112,7 +112,7 @@
 |---|---|---|---|---|---|
 | 0 | 학습 트랙 재정의와 요구사항 정리 | 완료 | - | - | 공식 문서, Stitch UI, CATAAS API 기준으로 플랜 재작성 |
 | 1 | Dart/Flutter 앱 진입점과 기본 위젯 | 완료 | 통과 | Fluttergram 홈 뼈대 작성 | `runApp()`의 루트 위젯 전달 역할을 재시도 후 정확히 설명함 |
-| 2 | 코드 포매팅과 현재 화면 점검 | 미시작 | - | - | formatter와 `flutter analyze`, 앱 실행 화면 확인 |
+| 2 | 코드 포매팅과 현재 화면 점검 | 완료 | 통과 | `lib/main.dart` formatter 적용, `flutter analyze` 통과 | formatter가 코드 스타일 일관성을 만든다고 설명함 |
 | 3 | 홈 피드 정적 UI 구성 | 미시작 | - | - | Stitch `_2` 기준 포스트 헤더, 이미지, 액션, 캡션 |
 | 4 | Dart 모델과 더미 피드 데이터 | 미시작 | - | - | `Post`, `User`, 리스트 렌더링 |
 | 5 | 리스트와 스크롤 | 미시작 | - | - | `ListView`, `SingleChildScrollView`, full-bleed media |
@@ -136,12 +136,14 @@
 | 단계 | 복습 기준일 | 1차 복습 | 2차 복습 | 3차 복습 | 다시 헷갈린 개념 |
 |---|---|---|---|---|---|
 | 1 | 2026-06-19 | 당일 | 3일 후 | 7일 후 | `StatelessWidget` vs `StatefulWidget`, `Scaffold` 역할 |
+| 2 | 2026-06-24 | 당일 | 3일 후 | 7일 후 | formatter, trailing comma |
 
 ## 실습 검증 기록
 
 | 실습 | 상태 | 검사 항목 | 수정 필요 내용 | 재검증 결과 |
 |---|---|---|---|---|
 | Fluttergram 홈 화면 뼈대 | 통과 | 퀴즈 통과, 복습 문서 작성, 앱 코드 작성 완료 | 테스트 코드는 학습 필수 범위에서 제외 | 통과 |
+| 코드 포매팅과 현재 화면 점검 | 통과 | `lib/main.dart` formatter 적용, `flutter analyze` 통과 | 없음 | 통과 |
 
 ## 단계별 학습 계획
 
@@ -194,9 +196,9 @@
 
 완료 체크:
 
-- [ ] `dart format` 또는 IDE reformat을 적용한다.
-- [ ] `flutter analyze`가 통과한다.
-- [ ] 실행 화면에서 Fluttergram 홈 뼈대가 확인된다.
+- [x] `dart format` 또는 IDE reformat을 적용한다.
+- [x] `flutter analyze`가 통과한다.
+- [x] 실행 화면에서 Fluttergram 홈 뼈대가 확인된다.
 
 ### 3단계. 홈 피드 정적 UI 구성
 
