@@ -113,7 +113,7 @@
 | 0 | 학습 트랙 재정의와 요구사항 정리 | 완료 | - | - | 공식 문서, Stitch UI, CATAAS API 기준으로 플랜 재작성 |
 | 1 | Dart/Flutter 앱 진입점과 기본 위젯 | 완료 | 통과 | Fluttergram 홈 뼈대 작성 | `runApp()`의 루트 위젯 전달 역할을 재시도 후 정확히 설명함 |
 | 2 | 코드 포매팅과 현재 화면 점검 | 완료 | 통과 | `lib/main.dart` formatter 적용, `flutter analyze` 통과 | formatter가 코드 스타일 일관성을 만든다고 설명함 |
-| 3 | 홈 피드 정적 UI 구성 | 미시작 | - | - | Stitch `_2` 기준 포스트 헤더, 이미지, 액션, 캡션 |
+| 3 | 홈 피드 정적 UI 구성 | 완료 | 통과 | 정적 포스트 카드 1개 작성, `flutter analyze` 통과 | `Column`, `Row`, `AspectRatio`, `CircleAvatar`, `Spacer` 사용 |
 | 4 | Dart 모델과 더미 피드 데이터 | 미시작 | - | - | `Post`, `User`, 리스트 렌더링 |
 | 5 | 리스트와 스크롤 | 미시작 | - | - | `ListView`, `SingleChildScrollView`, full-bleed media |
 | 6 | 상태 관리 기초 | 미시작 | - | - | 좋아요/북마크 토글, `setState` |
@@ -137,6 +137,7 @@
 |---|---|---|---|---|---|
 | 1 | 2026-06-19 | 당일 | 3일 후 | 7일 후 | `StatelessWidget` vs `StatefulWidget`, `Scaffold` 역할 |
 | 2 | 2026-06-24 | 당일 | 3일 후 | 7일 후 | formatter, trailing comma |
+| 3 | 2026-06-25 | 당일 | 3일 후 | 7일 후 | `Row` vs `Column`, `AspectRatio`, `Spacer` |
 
 ## 실습 검증 기록
 
@@ -144,6 +145,7 @@
 |---|---|---|---|---|
 | Fluttergram 홈 화면 뼈대 | 통과 | 퀴즈 통과, 복습 문서 작성, 앱 코드 작성 완료 | 테스트 코드는 학습 필수 범위에서 제외 | 통과 |
 | 코드 포매팅과 현재 화면 점검 | 통과 | `lib/main.dart` formatter 적용, `flutter analyze` 통과 | 없음 | 통과 |
+| 홈 피드 정적 UI 구성 | 통과 | 포스트 헤더, 이미지 영역, 액션 row, 좋아요, 캡션, `flutter analyze` 통과 | 없음 | 통과 |
 
 ## 단계별 학습 계획
 
@@ -225,9 +227,9 @@
 
 완료 체크:
 
-- [ ] 포스트 헤더, 이미지, 액션 row, caption 영역이 분리된다.
-- [ ] 12px margin과 4px spacing 단위를 지킨다.
-- [ ] media 영역은 1:1 또는 4:5 비율을 유지한다.
+- [x] 포스트 헤더, 이미지, 액션 row, caption 영역이 분리된다.
+- [x] 12px margin과 4px spacing 단위를 지킨다.
+- [x] media 영역은 1:1 또는 4:5 비율을 유지한다.
 
 ### 4단계. Dart 모델과 더미 피드 데이터
 

@@ -34,11 +34,82 @@ class HomePage extends StatelessWidget {
           IconButton(onPressed: () {}, icon: const Icon(Icons.send_outlined)),
         ],
       ),
-      body: const Center(
-        child: Text(
-          '첫 번째 피드 화면',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: Row(
+              children: [
+                const CircleAvatar(radius: 16, child: Text('S')),
+                const SizedBox(width: 8),
+                const Text(
+                  'sangyoon',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.more_horiz),
+                ),
+              ],
+            ),
+          ),
+          AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              color: Colors.grey.shade300,
+              child: const Center(
+                child: Icon(Icons.image, size: 64, color: Colors.black45),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.favorite_border),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.mode_comment_outlined),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.send_outlined),
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.bookmark_border),
+                ),
+              ],
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Text(
+              '128 likes',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(12, 6, 12, 0),
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'sangyoon ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: 'Flutter로 인스타그램 피드 UI를 만드는 중'),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
