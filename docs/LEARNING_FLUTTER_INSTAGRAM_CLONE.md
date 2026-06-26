@@ -114,7 +114,7 @@
 | 1 | Dart/Flutter 앱 진입점과 기본 위젯 | 완료 | 통과 | Fluttergram 홈 뼈대 작성 | `runApp()`의 루트 위젯 전달 역할을 재시도 후 정확히 설명함 |
 | 2 | 코드 포매팅과 현재 화면 점검 | 완료 | 통과 | `lib/main.dart` formatter 적용, `flutter analyze` 통과 | formatter가 코드 스타일 일관성을 만든다고 설명함 |
 | 3 | 홈 피드 정적 UI 구성 | 완료 | 통과 | 정적 포스트 카드 1개 작성, `flutter analyze` 통과 | `Column`, `Row`, `AspectRatio`, `CircleAvatar`, `Spacer` 사용 |
-| 4 | Dart 모델과 더미 피드 데이터 | 미시작 | - | - | `Post`, `User`, 리스트 렌더링 |
+| 4 | Dart 모델과 더미 피드 데이터 | 완료 | 통과 | `Post` 모델 작성, UI 하드코딩 값을 모델 필드로 교체, `flutter analyze` 통과 | `final`, `required`, `const`와 모델 값의 관계를 질문함 |
 | 5 | 리스트와 스크롤 | 미시작 | - | - | `ListView`, `SingleChildScrollView`, full-bleed media |
 | 6 | 상태 관리 기초 | 미시작 | - | - | 좋아요/북마크 토글, `setState` |
 | 7 | CATAAS 랜덤 이미지 API 연결 | 미시작 | - | - | `http`, `Future`, JSON, `Image.network`, Android internet permission |
@@ -129,6 +129,7 @@
 | 단계 | 질문 내용 | 호기심 유형 | 다음 설명 반영점 |
 |---|---|---|---|
 | 1 | Flutter는 왜 2칸 들여쓰기를 쓰는가 | 설계 이유 | Dart formatter와 Flutter 위젯 트리 중첩을 함께 설명 |
+| 4 | 모델 필드 값을 쓰는 위젯에서는 왜 `const`를 제거하는가 | 개념 비교 | 컴파일 타임 상수와 런타임 값의 차이를 예제로 설명 |
 | - | - | - | - |
 
 ## 간격 복습 기록
@@ -138,6 +139,7 @@
 | 1 | 2026-06-19 | 당일 | 3일 후 | 7일 후 | `StatelessWidget` vs `StatefulWidget`, `Scaffold` 역할 |
 | 2 | 2026-06-24 | 당일 | 3일 후 | 7일 후 | formatter, trailing comma |
 | 3 | 2026-06-25 | 당일 | 3일 후 | 7일 후 | `Row` vs `Column`, `AspectRatio`, `Spacer` |
+| 4 | 2026-06-26 | 당일 | 3일 후 | 7일 후 | `final`, `required`, `const`와 런타임 값 |
 
 ## 실습 검증 기록
 
@@ -146,6 +148,7 @@
 | Fluttergram 홈 화면 뼈대 | 통과 | 퀴즈 통과, 복습 문서 작성, 앱 코드 작성 완료 | 테스트 코드는 학습 필수 범위에서 제외 | 통과 |
 | 코드 포매팅과 현재 화면 점검 | 통과 | `lib/main.dart` formatter 적용, `flutter analyze` 통과 | 없음 | 통과 |
 | 홈 피드 정적 UI 구성 | 통과 | 포스트 헤더, 이미지 영역, 액션 row, 좋아요, 캡션, `flutter analyze` 통과 | 없음 | 통과 |
+| Dart 모델과 더미 피드 데이터 | 통과 | `Post` 모델 작성, 하드코딩 값 제거, `flutter analyze` 통과 | 없음 | 통과 |
 
 ## 단계별 학습 계획
 
@@ -255,8 +258,8 @@
 
 완료 체크:
 
-- [ ] UI에 직접 박힌 문자열을 모델 데이터로 옮긴다.
-- [ ] `const`, `final` 사용 기준을 설명한다.
+- [x] UI에 직접 박힌 문자열을 모델 데이터로 옮긴다.
+- [x] `const`, `final` 사용 기준을 설명한다.
 
 ### 5단계. 리스트와 스크롤
 
