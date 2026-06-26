@@ -41,12 +41,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const post = Post(
-      userName: 'sangyoon',
-      avatarText: 'S',
-      likeCount: 128,
-      caption: 'Flutter로 인스타그램 피드 UI를 만드는 중',
-    );
+    const List<Post> posts = [
+      Post(
+        userName: 'sangyoon',
+        avatarText: 'S',
+        likeCount: 128,
+        caption: 'Flutter로 인스타그램 피드 UI를 만드는 중',
+      ),
+      Post(
+        userName: 'flutter dev',
+        avatarText: 'F',
+        likeCount: 256,
+        caption: 'ListView로 여러 게시글을 스크롤하는 중',
+      )
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -55,81 +63,11 @@ class HomePage extends StatelessWidget {
           IconButton(onPressed: () {}, icon: const Icon(Icons.send_outlined)),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Row(
-              children: [
-                CircleAvatar(radius: 16, child: Text(post.avatarText)),
-                const SizedBox(width: 8),
-                Text(
-                  post.userName,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.more_horiz),
-                ),
-              ],
-            ),
-          ),
-          AspectRatio(
-            aspectRatio: 1,
-            child: Container(
-              color: Colors.grey.shade300,
-              child: const Center(
-                child: Icon(Icons.image, size: 64, color: Colors.black45),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.favorite_border),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.mode_comment_outlined),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.send_outlined),
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.bookmark_border),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              '${post.likeCount} likes',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(12, 6, 12, 0),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: '${post.userName} ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: post.caption),
-                ],
-              ),
-            ),
-          ),
+          PostCard(post: posts[0]),
+          const Divider(height: 1),
+          PostCard(post: posts[1]),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -153,6 +91,93 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class PostCard extends StatelessWidget {
+  const PostCard({super.key, required this.post});
+
+  final Post post;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Row(
+            children: [
+              CircleAvatar(radius: 16, child: Text(post.avatarText)),
+              const SizedBox(width: 8),
+              Text(
+                post.userName,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.more_horiz),
+              ),
+            ],
+          ),
+        ),
+        AspectRatio(
+          aspectRatio: 1,
+          child: Container(
+            color: Colors.grey.shade300,
+            child: const Center(
+              child: Icon(Icons.image, size: 64, color: Colors.black45),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.favorite_border),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.mode_comment_outlined),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.send_outlined),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.bookmark_border),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          child: Text(
+            '${post.likeCount} likes',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(12, 6, 12, 0),
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: '${post.userName} ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                TextSpan(text: post.caption),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
