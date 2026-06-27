@@ -95,13 +95,23 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   const PostCard({super.key, required this.post});
 
   final Post post;
 
   @override
+  State<PostCard> createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  bool _isLiked = false;
+
+  @override
   Widget build(BuildContext context) {
+    final post = widget.post;
+    final likeCount = post.likeCount + (_isLiked ? 1 : 0);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -137,8 +147,15 @@ class PostCard extends StatelessWidget {
           child: Row(
             children: [
               IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.favorite_border),
+                onPressed: () {
+                  setState(() {
+                    _isLiked = !_isLiked;
+                  });
+                },
+                icon: Icon(
+                  _isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: _isLiked ? Colors.red : null,
+                ),
               ),
               IconButton(
                 onPressed: () {},
@@ -159,7 +176,7 @@ class PostCard extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 12),
           child: Text(
-            '${post.likeCount} likes',
+            '$likeCount likes',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

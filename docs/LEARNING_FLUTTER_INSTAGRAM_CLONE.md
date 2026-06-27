@@ -116,7 +116,7 @@
 | 3 | 홈 피드 정적 UI 구성 | 완료 | 통과 | 정적 포스트 카드 1개 작성, `flutter analyze` 통과 | `Column`, `Row`, `AspectRatio`, `CircleAvatar`, `Spacer` 사용 |
 | 4 | Dart 모델과 더미 피드 데이터 | 완료 | 통과 | `Post` 모델 작성, UI 하드코딩 값을 모델 필드로 교체, `flutter analyze` 통과 | `final`, `required`, `const`와 모델 값의 관계를 질문함 |
 | 5 | 리스트와 스크롤 | 완료 | 통과 | `List<Post>`와 `ListView`로 게시글 2개 표시, `flutter analyze` 통과 | `Column`과 `ListView`의 스크롤 차이를 재시도 후 설명함 |
-| 6 | 상태 관리 기초 | 미시작 | - | - | 좋아요/북마크 토글, `setState` |
+| 6 | 상태 관리 기초 | 완료 | 통과 | 좋아요 토글 구현, 좋아요 수 반영, `flutter analyze` 통과 | `StatefulWidget`, `State`, `setState`, 지역 상태 사용 |
 | 7 | CATAAS 랜덤 이미지 API 연결 | 미시작 | - | - | `http`, `Future`, JSON, `Image.network`, Android internet permission |
 | 8 | 로딩/에러/재시도 UI | 미시작 | - | - | `FutureBuilder` 또는 명시적 상태 |
 | 9 | Explore 그리드 화면 | 미시작 | - | - | Stitch `_1` 기준 검색 바, 3열 grid, overlay icon |
@@ -142,6 +142,7 @@
 | 3 | 2026-06-25 | 당일 | 3일 후 | 7일 후 | `Row` vs `Column`, `AspectRatio`, `Spacer` |
 | 4 | 2026-06-26 | 당일 | 3일 후 | 7일 후 | `final`, `required`, `const`와 런타임 값 |
 | 5 | 2026-06-27 | 당일 | 3일 후 | 7일 후 | `List<Post>`, `ListView`, 스크롤 가능 조건 |
+| 6 | 2026-06-28 | 당일 | 3일 후 | 7일 후 | `StatefulWidget`, `setState`, 지역 상태 |
 
 ## 실습 검증 기록
 
@@ -152,6 +153,7 @@
 | 홈 피드 정적 UI 구성 | 통과 | 포스트 헤더, 이미지 영역, 액션 row, 좋아요, 캡션, `flutter analyze` 통과 | 없음 | 통과 |
 | Dart 모델과 더미 피드 데이터 | 통과 | `Post` 모델 작성, 하드코딩 값 제거, `flutter analyze` 통과 | 없음 | 통과 |
 | 리스트와 스크롤 | 통과 | `List<Post>` 작성, `ListView` 적용, `PostCard` 재사용, `flutter analyze` 통과 | 없음 | 통과 |
+| 상태 관리 기초 | 통과 | `PostCard`를 `StatefulWidget`으로 변경, 좋아요 토글, 좋아요 수 반영, `flutter analyze` 통과 | 없음 | 통과 |
 
 ## 단계별 학습 계획
 
@@ -314,8 +316,8 @@
 
 완료 체크:
 
-- [ ] 왜 이번 단계부터 `StatefulWidget`이 필요한지 설명한다.
-- [ ] `setState` 호출 위치와 이유를 설명한다.
+- [x] 왜 이번 단계부터 `StatefulWidget`이 필요한지 설명한다.
+- [x] `setState` 호출 위치와 이유를 설명한다.
 
 ### 7단계. CATAAS 랜덤 이미지 API 연결
 
