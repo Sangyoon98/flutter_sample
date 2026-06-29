@@ -77,7 +77,8 @@
 - 기본 API 도메인: `https://cataas.com`
 - 랜덤 이미지 직접 표시: `https://cataas.com/cat`
 - JSON 기반 이미지 URL 얻기: `https://cataas.com/cat?json=true`
-- JSON 방식은 응답의 `url` 값을 받아 `https://cataas.com/{url}` 형태의 이미지 URL로 만든다.
+- JSON 방식은 응답의 `url` 값을 이미지 URL로 사용한다.
+- CATAAS 응답의 `url`은 전체 URL 또는 상대 경로일 수 있으므로, `startsWith('http')`로 확인한 뒤 상대 경로일 때만 `https://cataas.com`을 붙인다.
 - Flutter 네트워크 요청 단계에서는 `http` package를 사용한다.
 - Android에서 인터넷 요청을 하려면 `android/app/src/main/AndroidManifest.xml`에 `android.permission.INTERNET` 권한이 필요하다.
 
@@ -117,7 +118,7 @@
 | 4 | Dart 모델과 더미 피드 데이터 | 완료 | 통과 | `Post` 모델 작성, UI 하드코딩 값을 모델 필드로 교체, `flutter analyze` 통과 | `final`, `required`, `const`와 모델 값의 관계를 질문함 |
 | 5 | 리스트와 스크롤 | 완료 | 통과 | `List<Post>`와 `ListView`로 게시글 2개 표시, `flutter analyze` 통과 | `Column`과 `ListView`의 스크롤 차이를 재시도 후 설명함 |
 | 6 | 상태 관리 기초 | 완료 | 통과 | 좋아요 토글 구현, 좋아요 수 반영, `flutter analyze` 통과 | `StatefulWidget`, `State`, `setState`, 지역 상태 사용 |
-| 7 | CATAAS 랜덤 이미지 API 연결 | 미시작 | - | - | `http`, `Future`, JSON, `Image.network`, Android internet permission |
+| 7 | CATAAS 랜덤 이미지 API 연결 | 완료 | 통과 | `http` 추가, 인터넷 권한 추가, CATAAS JSON 호출, `Image.network` 표시, `flutter analyze` 통과 | URL 정규화와 `FutureBuilder` future 재생성 문제를 함께 학습 |
 | 8 | 로딩/에러/재시도 UI | 미시작 | - | - | `FutureBuilder` 또는 명시적 상태 |
 | 9 | Explore 그리드 화면 | 미시작 | - | - | Stitch `_1` 기준 검색 바, 3열 grid, overlay icon |
 | 10 | 하단 네비게이션과 화면 전환 | 미시작 | - | - | 홈/검색 탭 전환 |
@@ -131,7 +132,8 @@
 | 1 | Flutter는 왜 2칸 들여쓰기를 쓰는가 | 설계 이유 | Dart formatter와 Flutter 위젯 트리 중첩을 함께 설명 |
 | 4 | 모델 필드 값을 쓰는 위젯에서는 왜 `const`를 제거하는가 | 개념 비교 | 컴파일 타임 상수와 런타임 값의 차이를 예제로 설명 |
 | 5 | `ListView`인데 왜 스크롤이 안 되는 것처럼 보이는가 | 오류 원인 | 스크롤 가능한 위젯과 실제 스크롤 가능한 콘텐츠 높이를 구분해 설명 |
-| - | - | - | - |
+| 7 | CATAAS 이미지 URL에 도메인이 두 번 붙은 이유 | 오류 원인 | API 응답 값이 전체 URL인지 상대 경로인지 확인하고 정규화하는 방식을 설명 |
+| 7 | 실행 후 사진이 한 번 뜬 뒤 다른 사진으로 다시 바뀐 이유 | Flutter lifecycle | `FutureBuilder`의 `future`를 `build()`에서 만들면 rebuild 때 새 요청이 생기므로 `initState()`에서 한 번 생성하도록 설명 |
 
 ## 간격 복습 기록
 
@@ -143,6 +145,7 @@
 | 4 | 2026-06-26 | 당일 | 3일 후 | 7일 후 | `final`, `required`, `const`와 런타임 값 |
 | 5 | 2026-06-27 | 당일 | 3일 후 | 7일 후 | `List<Post>`, `ListView`, 스크롤 가능 조건 |
 | 6 | 2026-06-28 | 당일 | 3일 후 | 7일 후 | `StatefulWidget`, `setState`, 지역 상태 |
+| 7 | 2026-06-29 | 당일 | 3일 후 | 7일 후 | `Future`, `async`/`await`, JSON parsing, `FutureBuilder`, `initState` |
 
 ## 실습 검증 기록
 
@@ -154,6 +157,7 @@
 | Dart 모델과 더미 피드 데이터 | 통과 | `Post` 모델 작성, 하드코딩 값 제거, `flutter analyze` 통과 | 없음 | 통과 |
 | 리스트와 스크롤 | 통과 | `List<Post>` 작성, `ListView` 적용, `PostCard` 재사용, `flutter analyze` 통과 | 없음 | 통과 |
 | 상태 관리 기초 | 통과 | `PostCard`를 `StatefulWidget`으로 변경, 좋아요 토글, 좋아요 수 반영, `flutter analyze` 통과 | 없음 | 통과 |
+| CATAAS 랜덤 이미지 API 연결 | 통과 | `http` 의존성, Android `INTERNET` 권한, JSON 파싱, URL 정규화, `FutureBuilder`, `flutter analyze` 통과 | 실패/재시도 UI는 8단계에서 진행 | 통과 |
 
 ## 단계별 학습 계획
 
@@ -344,8 +348,9 @@
 
 완료 체크:
 
-- [ ] 네트워크 요청, JSON 변환, UI 표시 흐름을 설명한다.
-- [ ] 로딩 중/성공/실패 상태를 구분한다.
+- [x] 네트워크 요청, JSON 변환, UI 표시 흐름을 설명한다.
+- [x] 로딩 중/성공 상태를 `FutureBuilder`로 구분한다. 실패/재시도는 8단계에서 처리한다.
+- [x] `FutureBuilder`의 `future`를 `build()`에서 매번 만들지 않고 `initState()`에서 한 번 생성해 보관한다.
 
 ### 8단계. 로딩/에러/재시도 UI
 
@@ -510,5 +515,5 @@
 
 ## 다음 세션 시작점
 
-첫 미완료 단계는 1단계다.
-다음 세션에서는 현재 `lib/main.dart`를 formatter 기준으로 정리하고, `flutter analyze`와 앱 실행 화면 확인으로 2단계를 진행한다.
+첫 미완료 단계는 8단계다.
+다음 세션에서는 CATAAS 이미지 로딩 실패를 처리하고, 실패 UI와 재시도 버튼을 추가한다.

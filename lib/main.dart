@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -28,12 +30,14 @@ class Post {
     required this.avatarText,
     required this.likeCount,
     required this.caption,
+    required this.imageUrl,
   });
 
   final String userName;
   final String avatarText;
   final int likeCount;
   final String caption;
+  final String imageUrl;
 }
 
 class HomePage extends StatelessWidget {
@@ -47,12 +51,14 @@ class HomePage extends StatelessWidget {
         avatarText: 'S',
         likeCount: 128,
         caption: 'Flutter로 인스타그램 피드 UI를 만드는 중',
+        imageUrl: 'https://cataas.com/cat',
       ),
       Post(
         userName: 'flutter dev',
         avatarText: 'F',
         likeCount: 256,
         caption: 'ListView로 여러 게시글을 스크롤하는 중',
+        imageUrl: 'https://cataas.com/cat',
       )
     ];
 
@@ -106,6 +112,28 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   bool _isLiked = false;
+  late final Future<String> _catImageUrlFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _catImageUrlFuture = fetchCatImageUrl();
+  }
+
+  Future<String> fetchCatImageUrl() async {
+    final response = await http.get(
+      Uri.parse('https://cataas.com/cat?json=true'),
+    );
+
+    final Map<String, dynamic> data = jsonDecode(response.body);
+    final String imageUrl = data['url'];
+
+    if (imageUrl.startsWith('http')) {
+      return imageUrl;
+    }
+
+    return 'https://cataas.com$imageUrl';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +163,20 @@ class _PostCardState extends State<PostCard> {
         ),
         AspectRatio(
           aspectRatio: 1,
-          child: Container(
-            color: Colors.grey.shade300,
-            child: const Center(
-              child: Icon(Icons.image, size: 64, color: Colors.black45),
-            ),
+          child: FutureBuilder<String>(
+            future: _catImageUrlFuture,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              return Image.network(
+                snapshot.data!,
+                fit: BoxFit.cover,
+              );
+            },
           ),
         ),
         Padding(
