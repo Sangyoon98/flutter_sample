@@ -112,7 +112,7 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   bool _isLiked = false;
-  late final Future<String> _catImageUrlFuture;
+  late Future<String> _catImageUrlFuture;
 
   @override
   void initState() {
@@ -125,6 +125,10 @@ class _PostCardState extends State<PostCard> {
       Uri.parse('https://cataas.com/cat?json=true'),
     );
 
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load cat image');
+    }
+
     final Map<String, dynamic> data = jsonDecode(response.body);
     final String imageUrl = data['url'];
 
@@ -133,6 +137,32 @@ class _PostCardState extends State<PostCard> {
     }
 
     return 'https://cataas.com$imageUrl';
+  }
+
+  Widget _buildCatImageError() {
+    return Container(
+      color: Colors.grey.shade200,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.error_outline, size: 32),
+            const SizedBox(height: 8),
+            const Text('이미지를 불러오지 못했어요'),
+            const SizedBox(height: 8),
+            TextButton.icon(
+              onPressed: () {
+                setState(() {
+                  _catImageUrlFuture = fetchCatImageUrl();
+                });
+              },
+              icon: const Icon(Icons.refresh),
+              label: const Text('다시 시도'),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -166,15 +196,22 @@ class _PostCardState extends State<PostCard> {
           child: FutureBuilder<String>(
             future: _catImageUrlFuture,
             builder: (context, snapshot) {
-              if (!snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
 
+              if (snapshot.hasError || !snapshot.hasData) {
+                return _buildCatImageError();
+              }
+
               return Image.network(
                 snapshot.data!,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return _buildCatImageError();
+                },
               );
             },
           ),

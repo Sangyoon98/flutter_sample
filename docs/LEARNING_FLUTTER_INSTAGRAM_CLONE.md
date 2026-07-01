@@ -11,7 +11,7 @@
 ## 프로젝트 기준
 
 - 앱 이름: Fluttergram
-- 현재 앱 상태: `HomePage` 기반 첫 홈 화면 뼈대 작성 완료
+- 현재 앱 상태: `HomePage` 기반 홈 피드에서 CATAAS 랜덤 이미지, 로딩, 에러, 재시도 UI 표시
 - 테스트 코드 작성: 현재 학습 필수 범위에서 제외
 - 검증 방식: 코드 포매팅, `flutter analyze`, 앱 실행 화면 확인 중심
 - UI 목표 1: Stitch `_2` 홈 피드 화면
@@ -119,7 +119,7 @@
 | 5 | 리스트와 스크롤 | 완료 | 통과 | `List<Post>`와 `ListView`로 게시글 2개 표시, `flutter analyze` 통과 | `Column`과 `ListView`의 스크롤 차이를 재시도 후 설명함 |
 | 6 | 상태 관리 기초 | 완료 | 통과 | 좋아요 토글 구현, 좋아요 수 반영, `flutter analyze` 통과 | `StatefulWidget`, `State`, `setState`, 지역 상태 사용 |
 | 7 | CATAAS 랜덤 이미지 API 연결 | 완료 | 통과 | `http` 추가, 인터넷 권한 추가, CATAAS JSON 호출, `Image.network` 표시, `flutter analyze` 통과 | URL 정규화와 `FutureBuilder` future 재생성 문제를 함께 학습 |
-| 8 | 로딩/에러/재시도 UI | 미시작 | - | - | `FutureBuilder` 또는 명시적 상태 |
+| 8 | 로딩/에러/재시도 UI | 완료 | 통과 | API 실패와 이미지 로딩 실패 처리, 재시도 버튼 추가, `flutter analyze` 통과 | `FutureBuilder`의 `snapshot.hasError`, `Image.network(errorBuilder)`, 새 `Future` 생성 |
 | 9 | Explore 그리드 화면 | 미시작 | - | - | Stitch `_1` 기준 검색 바, 3열 grid, overlay icon |
 | 10 | 하단 네비게이션과 화면 전환 | 미시작 | - | - | 홈/검색 탭 전환 |
 | 11 | 파일 구조와 앱 아키텍처 기초 | 미시작 | - | - | widgets/models/services/pages 분리 |
@@ -134,6 +134,7 @@
 | 5 | `ListView`인데 왜 스크롤이 안 되는 것처럼 보이는가 | 오류 원인 | 스크롤 가능한 위젯과 실제 스크롤 가능한 콘텐츠 높이를 구분해 설명 |
 | 7 | CATAAS 이미지 URL에 도메인이 두 번 붙은 이유 | 오류 원인 | API 응답 값이 전체 URL인지 상대 경로인지 확인하고 정규화하는 방식을 설명 |
 | 7 | 실행 후 사진이 한 번 뜬 뒤 다른 사진으로 다시 바뀐 이유 | Flutter lifecycle | `FutureBuilder`의 `future`를 `build()`에서 만들면 rebuild 때 새 요청이 생기므로 `initState()`에서 한 번 생성하도록 설명 |
+| 8 | `snapshot.hasData == false`를 전부 로딩으로 보면 왜 위험한가 | 상태 구분 | 로딩, 에러, 데이터 없음 상태를 `connectionState`, `hasError`, `hasData`로 나눠 설명 |
 
 ## 간격 복습 기록
 
@@ -146,6 +147,7 @@
 | 5 | 2026-06-27 | 당일 | 3일 후 | 7일 후 | `List<Post>`, `ListView`, 스크롤 가능 조건 |
 | 6 | 2026-06-28 | 당일 | 3일 후 | 7일 후 | `StatefulWidget`, `setState`, 지역 상태 |
 | 7 | 2026-06-29 | 당일 | 3일 후 | 7일 후 | `Future`, `async`/`await`, JSON parsing, `FutureBuilder`, `initState` |
+| 8 | 2026-07-01 | 당일 | 3일 후 | 7일 후 | `snapshot.hasError`, `connectionState`, `errorBuilder`, retry |
 
 ## 실습 검증 기록
 
@@ -158,6 +160,7 @@
 | 리스트와 스크롤 | 통과 | `List<Post>` 작성, `ListView` 적용, `PostCard` 재사용, `flutter analyze` 통과 | 없음 | 통과 |
 | 상태 관리 기초 | 통과 | `PostCard`를 `StatefulWidget`으로 변경, 좋아요 토글, 좋아요 수 반영, `flutter analyze` 통과 | 없음 | 통과 |
 | CATAAS 랜덤 이미지 API 연결 | 통과 | `http` 의존성, Android `INTERNET` 권한, JSON 파싱, URL 정규화, `FutureBuilder`, `flutter analyze` 통과 | 실패/재시도 UI는 8단계에서 진행 | 통과 |
+| 로딩/에러/재시도 UI | 통과 | HTTP status code 검사, `snapshot.hasError`, `Image.network(errorBuilder)`, 재시도 버튼, `flutter analyze` 통과 | 없음 | 통과 |
 
 ## 단계별 학습 계획
 
@@ -373,8 +376,9 @@
 
 완료 체크:
 
-- [ ] 네트워크 실패가 앱 전체 크래시로 이어지지 않는다.
-- [ ] 사용자가 재시도할 수 있다.
+- [x] 네트워크 실패가 앱 전체 크래시로 이어지지 않는다.
+- [x] 사용자가 재시도할 수 있다.
+- [x] API 요청 실패와 이미지 파일 로딩 실패를 구분해 처리한다.
 
 ### 9단계. Explore 그리드 화면
 
@@ -515,5 +519,5 @@
 
 ## 다음 세션 시작점
 
-첫 미완료 단계는 8단계다.
-다음 세션에서는 CATAAS 이미지 로딩 실패를 처리하고, 실패 UI와 재시도 버튼을 추가한다.
+첫 미완료 단계는 9단계다.
+다음 세션에서는 Stitch `_1`을 기준으로 Explore 화면의 검색 바와 3열 그리드 UI를 만든다.
